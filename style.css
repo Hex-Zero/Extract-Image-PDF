@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html {
+  background-color: gray;
+}
+#pdf-iframe {
+  margin-top: -2px;
+  margin-left: -2px;
+  width: 100.2%;
+  height: 101vh;
+}
+body {
+  overflow: hidden;
+}
+.search-input {
+  top: 64px;
+  left: 32px;
+  width: 150px;
+  position: absolute;
+}
