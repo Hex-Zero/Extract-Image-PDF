@@ -25,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/Hex-Zero/Extract-Image-PDF/issues"
   },
+  "bin": "app.js",
   "homepage": "https://github.com/Hex-Zero/Extract-Image-PDF#readme"
 }
