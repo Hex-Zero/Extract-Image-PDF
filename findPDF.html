@@ -55,7 +55,7 @@ let searchInput = document.getElementById("search-input");
 let pdfName;
 searchButton.addEventListener("click", () => {
   searchPrtialMatch();
-  iframe.src = "file:///C:/Code/Extract-Image-PDF/" + pdfName;
+  iframe.src =  pdfName;
 });
 searchInput.addEventListener("keydown", (event) => {
   if (event.keyCode === 13) {
