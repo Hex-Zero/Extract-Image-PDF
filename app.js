@@ -1,8 +1,8 @@
 try {
   var fs = require("fs");
   var express = require("express");
-  var files = fs.readdirSync("/spec/");
   var path = require("path");
+  var opn = require("opn");
   var newPath;
   var pdfPathList = [];
 
@@ -41,9 +41,13 @@ try {
     next();
   });
   app.get("/", function (req, res) {
-    res.sendFile();
+    res.sendFile(path.join(__dirname, "public", "index.html"));
   });
-  app.listen(port, () => console.log(port));
+  app.get("/list/", function (req, res) {
+    res.json(pdfPathList);
+  });
+  app.listen(port, () => {});
+  opn(path.join(__dirname, "public", "index.html"));
 } catch (err) {
   console.log(err);
 }
