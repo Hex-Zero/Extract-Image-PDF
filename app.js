@@ -1,7 +1,6 @@
 try {
   var fs = require("fs");
   var express = require("express");
-  var path = require("path");
   var opn = require("opn");
   var newPath;
   var pdfPathList = [];
@@ -21,12 +20,6 @@ try {
         pdfPathList.push(currentPath.substring(5) + r);
       }
     });
-
-    // start.forEach((element) => {
-    //   newPath = fs.readdirSync("/spec/" + element + "/");
-    //   getAllPDFPaths(newPath);
-    //   pathList.push(element);
-    // });
   };
   getAllPDFPaths("/spec/", "");
 
@@ -41,13 +34,13 @@ try {
     next();
   });
   app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile("index.html");
   });
   app.get("/list/", function (req, res) {
     res.json(pdfPathList);
   });
   app.listen(port, () => {});
-  opn(path.join(__dirname, "public", "index.html"));
+  opn("index.html");
 } catch (err) {
   console.log(err);
 }

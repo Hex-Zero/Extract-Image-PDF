@@ -48,7 +48,6 @@ body {
     <iframe id="pdf-iframe" title="PDF"></iframe>
   </body>
   <script>
-  
       let searchButton = document.getElementById("search-button");
 let iframe = document.getElementById("pdf-iframe");
 let searchInput = document.getElementById("search-input");
@@ -72,8 +71,8 @@ getFileList();
 
 const searchPrtialMatch = () => {
   data.forEach((element) => {
-    if (element.includes(searchInput.value)) {
-      pdfName = element;
+    if (element.toLowerCase().includes(searchInput.value.toLowerCase())) {
+      pdfName =("." + element);
     }
   });
 };
