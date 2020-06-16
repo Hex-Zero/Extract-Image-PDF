@@ -1,33 +1,49 @@
-var fs = require("fs");
-var express = require("express");
-var files = fs.readdirSync("/Code/Extract-Image-PDF");
+try {
+  var fs = require("fs");
+  var express = require("express");
+  var files = fs.readdirSync("/spec/");
+  var path = require("path");
+  var newPath;
+  var pdfPathList = [];
 
-var app = express();
-const port = 5501;
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-app.get("/", function (req, res) {
-  res.json(files);
-});
-app.listen(port, () => console.log(port));
+  const getAllPDFPaths = (start, end) => {
+    let currentPath;
+    if (end) {
+      currentPath = start + end + "/";
+    } else {
+      currentPath = start;
+    }
+    newPath = fs.readdirSync(currentPath);
+    newPath.forEach((r) => {
+      if (!r.includes(".")) {
+        getAllPDFPaths(currentPath, r);
+      } else {
+        pdfPathList.push(currentPath.substring(5) + r);
+      }
+    });
 
-// const server = http.createServer((req, res, next) => {
-//   res.statusCode = 200;
-//   res.setHeader("Content-Type", "text/plain");
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   res.end();
-// });
+    // start.forEach((element) => {
+    //   newPath = fs.readdirSync("/spec/" + element + "/");
+    //   getAllPDFPaths(newPath);
+    //   pathList.push(element);
+    // });
+  };
+  getAllPDFPaths("/spec/", "");
 
-// server.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}`);
-// });
+  var app = express();
+  const port = 5501;
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
+  app.get("/", function (req, res) {
+    res.sendFile();
+  });
+  app.listen(port, () => console.log(port));
+} catch (err) {
+  console.log(err);
+}
